@@ -1,10 +1,10 @@
 {
   "name": "genial-academy-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/index.mjs",
+    "dev": "nodemon src/index.mjs"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
-  }
+  },
+  "type": "module"
 }
