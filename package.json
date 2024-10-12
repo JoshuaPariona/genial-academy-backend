@@ -1,10 +1,10 @@
 {
   "name": "genial-academy-backend",
   "version": "1.0.0",
-  "main": "app.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
-    "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app.js\"",
+    "start": "tsc && node dist/index.js",
+    "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "start:prod": "SET NODE_ENV=production && npm start"
   },
   "author": "JoshuaPariona",
