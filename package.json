@@ -9,7 +9,10 @@
     "typeorm": "typeorm-ts-node-esm -d ./database/AppDataSource.ts",
     "m:gen": "npm run typeorm migration:generate",
     "m:run": "npm run typeorm migration:run",
-    "viz:dep": "npx depcruise src --include-only \"src\" --output-type dot | dot -Tsvg -o screenshots/graph/dependencies.svg"
+    "viz:dep": "npx depcruise src --include-only \"src\" --output-type dot | dot -Tsvg -o screenshots/graph/dependencies.svg",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "author": "JoshuaPariona",
   "license": "ISC",
@@ -37,6 +40,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/morgan": "^1.9.9",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
@@ -46,7 +50,9 @@
     "concurrently": "^9.0.1",
     "copyfiles": "^2.4.1",
     "dependency-cruiser": "^16.6.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2"
   },
   "type": "commonjs"
