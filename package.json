@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
-    "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "start:prod": "SET NODE_ENV=production && npm start"
+    "start": "tsc && copyfiles -u 1 src/views/**/* dist && node dist/index.js",
+    "start:dev": "tsc && copyfiles -u 1 src/views/**/* dist && concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "start:prod": "SET NODE_ENV=production && npm start",
+    "typeorm": "typeorm-ts-node-esm -d ./database/AppDataSource.ts",
+    "m:gen": "npm run typeorm migration:generate",
+    "m:run": "npm run typeorm migration:run",
+    "viz:dep": "npx depcruise src --include-only \"src\" --output-type dot | dot -Tsvg -o screenshots/graph/dependencies.svg"
   },
   "author": "JoshuaPariona",
   "license": "ISC",
@@ -14,22 +18,36 @@
     "class-validator": "^0.14.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.21.0",
     "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.20",
     "typeorm-naming-strategies": "^4.1.0",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/passport-local": "^1.0.38",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "concurrently": "^9.0.1",
-    "nodemon": "^3.1.7"
+    "copyfiles": "^2.4.1",
+    "dependency-cruiser": "^16.6.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2"
   },
   "type": "commonjs"
 }
