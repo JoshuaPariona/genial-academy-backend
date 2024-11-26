@@ -17,6 +17,9 @@ dist/
 build/
 out/
 
+# Local config
+.dependency-cruiser.js
+
 # OS generated files
 .DS_Store
 Thumbs.db
