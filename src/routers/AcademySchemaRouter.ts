@@ -1,27 +1,32 @@
 import { BaseRouter } from "./base/BaseRouter";
-import { AcademyController } from "../controllers/AcademyController";
-import { AcademyMiddleware } from "../middlewares/AcademyMiddleware";
+import { AcademySchemaController } from "../controllers/AcademySchemaController";
+import { AcademySchemaMiddleware } from "../middlewares/AcademySchemaMiddleware";
 
-export class AcademyRouter extends BaseRouter<
-  AcademyController,
-  AcademyMiddleware
+export class AcademySchemaRouter extends BaseRouter<
+  AcademySchemaController,
+  AcademySchemaMiddleware
 > {
   constructor() {
-    super(AcademyController, AcademyMiddleware, "Academy");
+    super(AcademySchemaController, AcademySchemaMiddleware, "AcademyRouter");
   }
 
   protected override routes(): void {
-    this.router.get("/universities", (req, res) => {
-      this.controller.getUniversities(req, res);
-    });
+    /**
+     * @swagger
+     * /universities:
+     *   get:
+     *     summary: Obtiene una lista de todas las universidades
+     *     responses:
+     *       200:
+     *         description: Lista de universidades
+     */
+    this.router.get(
+      "/universities",
+      this.middleware.base,
+      this.controller.getUniversities
+    );
 
-    this.router.get("/university/:id", (req, res) => {
-      this.controller.getUniversityById(req, res);
-    });
-
-    this.router.post("/university", (req, res) => {
-      this.controller.postUniversity(req, res);
-    });
+    this.router.get("/university/:id", this.controller.getUniversityByIdOrSlug);
 
     /*
 

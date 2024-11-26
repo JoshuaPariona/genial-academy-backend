@@ -1,34 +1,38 @@
 import * as dotenv from "dotenv";
-import morgan from "morgan";
+import swaggerJSDoc from "swagger-jsdoc";
 import { DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { Logger, LogLevel } from "../utils/Logger";
+import morgan from "morgan";
+import { Request, Response } from "express";
 
 export abstract class AppConfig {
-  constructor() {
+  public static initialize() {
     dotenv.config({
       path: this.envPath,
     });
   }
 
-  private get envPath(): string {
+  private static get envPath(): string {
     const envs: Array<string> = ["env"];
-    if (this.nodeEnv) envs.unshift(...this.nodeEnv.split("."));
+    const nodeEnv = process.env["NODE_ENV"];
+    if (nodeEnv) envs.unshift(...nodeEnv.split("."));
     return "." + envs.join(".");
   }
 
-  public getEnvString(key: string): string | undefined {
-    return process.env[key]?.trim();
+  public static getEnvString(key: string): string {
+    const value = process.env[key]?.trim();
+    if (!value) {
+      throw new Error(`Missing environment variable: ${key}`);
+    }
+    return value;
   }
 
-  public getEnvNumber(key: string): number {
+  public static getEnvNumber(key: string): number {
     return Number(this.getEnvString(key));
   }
 
-  public get nodeEnv(): string | undefined {
-    return this.getEnvString("NODE_ENV");
-  }
-
-  public get typeORMConfig(): DataSourceOptions {
+  public static get typeORMConfig(): DataSourceOptions {
     return {
       type: "mysql",
       host: this.getEnvString("DB_HOST"),
@@ -45,25 +49,61 @@ export abstract class AppConfig {
     };
   }
 
-  public get morganFormat(): string {
-    const getColor = (status: number): number => {
-      if (status >= 500) {
-        return 31;
-      } else if (status >= 400) {
-        return 33;
-      } else if (status >= 300) {
-        return 36;
-      } else if (status >= 200) {
-        return 32;
-      } else {
-        return 31;
-      }
+  public static get morganFormat(): string {
+    return ":method$:status$:url$:response-time ms$:res[content-length]";
+  }
+
+  public static get morganOptions(): morgan.Options<Request, Response> {
+    return {
+      stream: {
+        write: (message: string) => {
+          const tokens = message.split("$");
+          const status = Number(tokens[1]);
+          let logLevel: LogLevel;
+
+          if (status >= 500 || isNaN(status)) {
+            logLevel = LogLevel.Error;
+          } else if (status >= 400 && status < 500) {
+            logLevel = LogLevel.Warning;
+          } else if (status >= 300 && status < 400) {
+            logLevel = LogLevel.Info;
+          } else if (status >= 200 && status < 300) {
+            logLevel = LogLevel.Log;
+          } else {
+            logLevel = LogLevel.Debug;
+          }
+
+          Logger.log({
+            level: logLevel,
+            tag: "Api",
+            feature: tokens[0] ? tokens[0] : "Not method",
+            message: "",
+            status: tokens[1] ? tokens[1] : "Not status",
+            path: tokens[2] ? tokens[2] : "Not path",
+            duration: tokens[3] ? tokens[3] : "Not duration",
+            weight: tokens[4] ? tokens[4] : "Not weight",
+          });
+        },
+      },
     };
-    morgan.token("statusColor", (_, res, __) => {
-      const status = res.statusCode;
-      const color = getColor(status);
-      return "\x1b[" + color + "m" + status + "\x1b[0m";
-    });
-    return "\x1b[32m[Api] \x1b[35m<:method>\x1b[0m :statusColor :url :response-time ms length=>:res[content-length]";
+  }
+
+  public static get swaggerOptions(): swaggerJSDoc.Options {
+    return {
+      swaggerDefinition: {
+        openapi: "3.0.0",
+        info: {
+          title: "GenialAcademy API",
+          version: "0.1.0",
+          description: "Documentación de la API integrada en el servidor",
+        },
+        servers: [
+          {
+            url: `localhost:${this.getEnvNumber("PORT")}`,
+          },
+        ],
+      },
+      apis: ["./src/routers/*.ts"],
+    };
   }
 }

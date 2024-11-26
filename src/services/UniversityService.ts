@@ -6,17 +6,17 @@ export class UniversityService extends BaseService<UniversityEntity> {
     super(UniversityEntity);
   }
 
-  public async findAll(): Promise<UniversityEntity[]> {
-    return this.repository.find();
-  }
-
-  public async findById(id: number): Promise<UniversityEntity | null> {
-    return this.repository.findOne({
-      where: { id },
+  public findAll(): Promise<UniversityEntity[]> {
+    return this.repository.find({
+      select: ["id", "slug", "name", "thumbnail", "acronym"],
     });
   }
 
-  public async create(body: any): Promise<UniversityEntity | null> {
-    return this.repository.save(body);
+  public findById(id: number): Promise<UniversityEntity | null> {
+    return this.repository.findOneBy({ id });
+  }
+
+  public findBySlug(slug: string): Promise<UniversityEntity | null> {
+    return this.repository.findOneBy({ slug });
   }
 }

@@ -1,36 +1,56 @@
-import { DataSource, DataSourceOptions } from "typeorm";
-import { Logger } from "../utils/Logger";
+import { DataSource } from "typeorm";
+import { Logger, LogLevel } from "../utils/Logger";
+import { AppConfig } from "../config/AppConfig";
 
 export class AppDataSource {
   private static dataSource: DataSource;
-  private static readonly logger: Logger = new Logger("AppDataSource");
+  private static readonly tag: string = "AppDataSource";
 
-  public static async initialize(
-    typeORMConfig: DataSourceOptions
-  ): Promise<void> {
-    if (!AppDataSource.dataSource) {
-      AppDataSource.dataSource = new DataSource(typeORMConfig);
+  public static async initialize(): Promise<void> {
+    if (!this.dataSource) {
       try {
-        AppDataSource.dataSource = await AppDataSource.dataSource.initialize();
-        AppDataSource.logger.info("Database Connected", "Database");
+        this.dataSource = new DataSource(AppConfig.typeORMConfig);
+        this.dataSource = await this.dataSource.initialize();
+        Logger.log({
+          level: LogLevel.Info,
+          tag: this.tag,
+          feature: "Database",
+          message: "Database Connected",
+        });
       } catch (error) {
-        AppDataSource.logger.error(
-          `Database Connection Error: ${error}`,
-          "Database"
-        );
+        if (error instanceof Error) {
+          Logger.log({
+            level: LogLevel.Error,
+            tag: this.tag,
+            feature: "Database",
+            message: `Database Connection Error: ${error.message}`,
+          });
+        } else {
+          Logger.log({
+            level: LogLevel.Error,
+            tag: this.tag,
+            feature: "Database",
+            message: `Unknown Error: ${error}`,
+          });
+        }
         throw error;
       }
     }
   }
 
   public static get instance(): DataSource {
-    if (!AppDataSource.dataSource) {
-      AppDataSource.logger.error(
-        "Database Connection Error: DataSource not initialized. Call initialize() first.",
-        "Database"
+    if (!this.dataSource) {
+      Logger.log({
+        level: LogLevel.Error,
+        tag: this.tag,
+        feature: "Database",
+        message:
+          "Database Connection Error: DataSource not initialized. Call initialize() first.",
+      });
+      throw new Error(
+        "Database Connection Error: DataSource not initialized. Call initialize() first."
       );
-      throw new Error();
     }
-    return AppDataSource.dataSource;
+    return this.dataSource;
   }
 }

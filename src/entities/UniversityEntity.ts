@@ -16,6 +16,6 @@ export class UniversityEntity extends AcademyBaseEntity {
   @Column({ length: 2048 })
   admissionImg!: string;
 
-  @OneToMany(() => StepEntity, (step) => step.university)
+  @OneToMany(() => StepEntity, (step) => step.university, { eager: true })
   steps!: StepEntity[];
 }

@@ -3,17 +3,19 @@ import { UuidBaseEntity } from "./base/UuidBaseEntity";
 
 @Entity({ name: "users" })
 export class UserEntity extends UuidBaseEntity {
-  @Column()
-  displayName!: string;
+  /*
+  @Column({ nullable: false, length: 100 })
+  username?: string;
+  */
 
   @Column()
-  displaySurName!: string;
+  names!: string;
 
-  @Column({ unique: true })
-  username!: string;
+  @Column()
+  surNames!: string;
 
-  @Column({ unique: true })
-  email!: string;
+  @Column({ nullable: true })
+  publicEmail?: string;
 
   @Column({ nullable: true })
   imageUrl?: string;
@@ -35,7 +37,4 @@ export class UserEntity extends UuidBaseEntity {
 
   @Column({ nullable: true })
   career?: string;
-
-  @Column({ type: "enum", enum: ["user", "admin"], default: "user" })
-  role!: string;
 }

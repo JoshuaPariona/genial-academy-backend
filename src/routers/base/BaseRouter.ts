@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { Logger } from "../../utils/Logger";
+import { Logger, LogLevel } from "../../utils/Logger";
 
 export class BaseRouter<C, M> {
   public router: Router;
-  protected readonly logger: Logger;
   protected readonly feature: string;
+  protected readonly tag: string = "Router";
   protected controller: C;
   protected middleware: M;
 
@@ -14,7 +14,6 @@ export class BaseRouter<C, M> {
     feature: string
   ) {
     this.feature = feature;
-    this.logger = new Logger("Router");
     this.router = Router();
     this.controller = new Controller();
     this.middleware = new Middleware();
@@ -22,6 +21,11 @@ export class BaseRouter<C, M> {
   }
 
   protected routes(): void {
-    this.logger.warning("Starting router without routes", this.feature);
+    Logger.log({
+      level: LogLevel.Warning,
+      tag: this.tag,
+      feature: this.feature,
+      message: "Starting router without routes",
+    });
   }
 }

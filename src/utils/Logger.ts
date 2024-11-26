@@ -1,55 +1,46 @@
+export enum LogLevel {
+  Debug = "debug",
+  Warning = "warning",
+  Error = "error",
+  Info = "info",
+  Log = "log",
+}
+
+interface Log {
+  level: LogLevel;
+  timestamp?: string;
+  tag: string;
+  feature: string;
+  message: string;
+  status?: string;
+  path?: string;
+  duration?: string;
+  weight?: string;
+}
+
 export class Logger {
-  private readonly tag: string;
+  private static readonly buffer: Array<Log> = [];
+  private static readonly MAX_LOGS: number = 4000;
+  private static readonly inConsole: boolean = true;
 
-  constructor(tag: string) {
-    this.tag = tag;
+  public static log(log: Log): void {
+    if (this.inConsole) {
+      console.log(log);
+    }
+    this.buffer.push({
+      ...log,
+      timestamp: new Date().toLocaleString(),
+    });
+    if (this.buffer.length > this.MAX_LOGS) {
+      this.buffer.shift();
+    }
   }
 
-  private getLink(text?: string): string {
-    return text ? `\x1b[36m\x1b[4m${text}` : "";
+  public static get logs(): Array<Log> {
+    return this.buffer;
   }
 
-  private getFeature(text?: string): string {
-    return text ? `\x1b[35m<${text}>` : "";
-  }
-
-  private getMessage(text: string): string {
-    return `\x1b[0m${text}`;
-  }
-
-  public debug(message: string, feature?: string, link?: string) {
-    const messageText = this.getMessage(message);
-    const featureText = this.getFeature(feature);
-    const linkText = this.getLink(link);
-    console.debug(
-      `\x1b[36m[${this.tag}] ${featureText} ${messageText} ${linkText}\x1b[0m`
-    );
-  }
-
-  public warning(message: string, feature?: string, link?: string) {
-    const messageText = this.getMessage(message);
-    const featureText = this.getFeature(feature);
-    const linkText = this.getLink(link);
-    console.warn(
-      `\x1b[33m[${this.tag}] ${featureText} ${messageText} ${linkText}\x1b[0m`
-    );
-  }
-
-  public error(message: string, feature?: string, link?: string) {
-    const messageText = this.getMessage(message);
-    const featureText = this.getFeature(feature);
-    const linkText = this.getLink(link);
-    console.error(
-      `\x1b[31m[${this.tag}] ${featureText} ${messageText} ${linkText}\x1b[0m`
-    );
-  }
-
-  public info(message: string, feature?: string, link?: string) {
-    const messageText = this.getMessage(message);
-    const featureText = this.getFeature(feature);
-    const linkText = this.getLink(link);
-    console.info(
-      `\x1b[32m[${this.tag}] ${featureText} ${messageText} ${linkText}\x1b[0m`
-    );
+  public static get max(): number {
+    return this.MAX_LOGS;
   }
 }

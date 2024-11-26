@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genial Logger</title>
+    <style>
+      html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      body {
+        flex: 1;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        
+        padding: 20px;
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      body.dark {
+        background-color: #282a36;
+      }
+      body.light {
+        background-color: #fff;
+      }
+      h1 {
+        margin: 0;
+      }
+      .legend {
+        display: flex;
+        gap: 20px;
+      }
+      .row {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+      }
+      .timestamp {
+        color: #ff79c6;
+      }
+      .tag {
+        color: #8be9fd;
+      }
+      .feature {
+        color: #50fa7b;
+      }
+      .message {
+        color: #f1fa8c;
+      }
+      .status,
+      .path,
+      .duration,
+      .weight {
+        color: #bd93f9;
+      }
+      .bullet {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        margin-right: 4px;
+      }
+      .debug {
+        background-color: blue;
+      }
+      .warning {
+        background-color: orange;
+      }
+      .error {
+        background-color: red;
+      }
+      .info,
+      .log {
+        background-color: green;
+      }
+      .header {
+        color: #bd93f9;
+        font-family: monospace;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .logContainer {
+        border: 1px solid #6272a4;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 0;
+        overflow-y: scroll;
+        font-family: monospace;
+        flex: 1;
+      }
+      body.light .logContainer {
+        background-color: #fff;
+      }
+      body.dark .logContainer {
+        background-color: #44475a;
+      }
+      .logContainer::-webkit-scrollbar {
+        width: 4px;
+      }
+      .logContainer::-webkit-scrollbar-thumb {
+        background-color: #6272a4;
+        border-radius: 2px;
+      }
+      .logContainer::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 24px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 2px;
+        background-color: #fff;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+      input:checked + .slider {
+        background-color: #6272a4;
+      }
+      input:focus + .slider {
+        box-shadow: 0 0 1px #6272a4;
+      }
+      input:checked + .slider:before {
+        -webkit-transform: translateX(14px);
+        -ms-transform: translateX(14px);
+        transform: translateX(14px);
+      }
+      .slider.round {
+        border-radius: 24px;
+      }
+      .slider.round:before {
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Genial Academy Logs</h1>
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    </div>
+    <div class="header">
+      <div class="legend">
+        <div class="row">
+          <span class="bullet debug"></span>
+          <span>Debug</span>
+        </div>
+        <div class="row">
+          <span class="bullet warning"></span>
+          <span>Warning</span>
+        </div>
+        <div class="row">
+          <span class="bullet error"></span>
+          <span>Error</span>
+        </div>
+        <div class="row">
+          <span class="bullet info"></span>
+          <span>Info - Log</span>
+        </div>
+      </div>
+      <span><%= logs.length %>/<%= max %></span>
+    </div>
+    <div id="logContainer" class="logContainer">
+      <% logs.forEach(log => { %>
+        <p>
+          <span class="bullet <%=log.level%>"></span>
+          <span class="timestamp">[<%= log.timestamp %>] </span>
+          <span class="tag">[<%= log.tag %>] </span>
+          <span class="feature">&lt;<%= log.feature %>&gt; </span>
+          <% if(log.message) { %>
+            <span class="message"><%= log.message %> </span>
+          <% } %>
+          <% if(log.status) { %>
+            <span class="status">Status:<%= log.status %> </span>
+          <% } %> 
+          <% if(log.path) { %>
+            <span class="path">Path:<%= log.path %> </span>
+          <% } %> 
+          <% if(log.duration) { %>
+            <span class="duration">Duration:<%= log.duration %> </span>
+          <% } %> 
+          <% if(log.weight) { %>
+            <span class="weight">Weight:<%= log.weight %></span>
+          <% } %>
+        </p>
+      <% }); %>
+    </div>
+    <script>
+      function scrollToBottom() {
+        const logContainer = document.getElementById("logContainer");
+        logContainer.scrollTop = logContainer.scrollHeight;
+      }
+      function saveThemeToLocalStorage(theme) {
+        localStorage.setItem('theme', theme);
+      }
+      function loadThemeFromLocalStorage() {
+        return localStorage.getItem('theme') || 'light';
+      }
+      document.getElementById('theme-toggle').addEventListener('change', function() {
+        const newTheme = this.checked ? 'dark' : 'light';
+        saveThemeToLocalStorage(newTheme);
+        document.body.className = newTheme;
+      });
+      const currentTheme = loadThemeFromLocalStorage();
+      document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+      document.body.className = currentTheme;
+      window.onload = scrollToBottom;
+    </script>
+  </body>
+</html>
