@@ -2,10 +2,24 @@ import { NextFunction, Request, Response } from "express";
 import passport from "passport";
 import { AuthUserEntity } from "../../entities/AuthUserEntity";
 import { Responser } from "../../utils/Responser";
+import { JwtStrategy } from "../strategies/JwtStrategy";
+import { SignUpUserDTO } from "../validations/dto/SignUpUserDTO";
+import { validateSync } from "class-validator";
 
 export class AuthMiddleware {
-  private isAuthUserEntity(user: any) {
-    return user && typeof user.role === "string" && typeof user.id === "string";
+  public validateSignUpUserDTO(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const errors = validateSync(new SignUpUserDTO(req.body));
+    if (errors.length > 0) {
+      const errorMessages = errors.map((error) =>
+        Object.values(error.constraints || {}).join(", ")
+      );
+      return Responser.BAD_REQUEST(res, errorMessages);
+    }
+    next();
   }
 
   public validateIsAuthenticated(
@@ -19,20 +33,12 @@ export class AuthMiddleware {
     next();
   }
 
-  public validateAuthUserEntity(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
-    /*
-    if (!this.isAuthUserEntity(req.user)) {
-      return Responser.BAD_REQUEST(res, "Usuario no válido");
-    }*/
-    next();
+  public get authenticateWithLocal() {
+    return passport.authenticate(JwtStrategy.stgName, { session: false });
   }
 
-  public authenticate(stgName: string) {
-    return passport.authenticate(stgName, { session: false });
+  public get authenticateWithJwt() {
+    return passport.authenticate(JwtStrategy.stgName, { session: false });
   }
 
   // Must be authenticated -> use validateIsAuthenticated
