@@ -9,7 +9,7 @@ export class ApiKeyMiddleware {
     next: NextFunction
   ) => void {
     return (req, res, next) => {
-      const apiKey = req.headers["api-key"];
+      const apiKey = req.headers["x-api-key"];
 
       if (!apiKey) {
         return Responser.UNAUTHORIZED(res, "API Key is missing");
