@@ -14,7 +14,12 @@ export class AuthUserService extends BaseService<AuthUserEntity> {
   protected save(
     authUser: DeepPartial<AuthUserEntity>
   ): Promise<AuthUserEntity> {
-    return this.repository.save(authUser);
+    authUser.user = {
+      ...authUser,
+      publicEmail: authUser.email,
+    };
+    const aUser = this.repository.create(authUser);
+    return this.repository.save(aUser);
   }
 
   public isEmailUsed(email: string): Promise<boolean> {
