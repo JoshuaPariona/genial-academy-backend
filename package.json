@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && copyfiles -u 1 src/views/**/* dist && node dist/index.js",
-    "start:dev": "tsc && copyfiles -u 1 src/views/**/* dist && concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "start": "tsc && copyfiles -u 1 src/main/views/**/* dist && node dist/index.js",
+    "start:dev": "tsc && copyfiles -u 1 src/main/views/**/* dist && concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "start:prod": "SET NODE_ENV=production && npm start",
     "typeorm": "typeorm-ts-node-esm -d ./database/AppDataSource.ts",
     "m:gen": "npm run typeorm migration:generate",
