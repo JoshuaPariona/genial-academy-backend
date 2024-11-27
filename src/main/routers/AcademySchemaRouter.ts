@@ -13,7 +13,7 @@ export class AcademySchemaRouter extends BaseRouter<
   protected override routes(): void {
     /**
      * @swagger
-     * /universities:
+     * /api/universities:
      *   get:
      *     summary: Obtiene una lista de todas las universidades
      *     responses:
