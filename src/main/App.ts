@@ -1,16 +1,16 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import passport from "passport";
+import path from "path";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import path from "path";
 import { AppConfig } from "./config/AppConfig";
 import { Logger, LogLevel } from "./utils/Logger";
 import { AppDataSource } from "./database/AppDataSource";
 import { AcademySchemaRouter } from "./routers/AcademySchemaRouter";
 import { UserSchemaRouter } from "./routers/UserSchemaRouter";
 import { ApiKeyMiddleware } from "./auth/middlewares/ApiKeyMiddleware";
-import passport from "passport";
 import { AuthRouter } from "./auth/router/AuthRouter";
 import { LocalStrategy } from "./auth/strategies/LocalStrategy";
 import { JwtStrategy } from "./auth/strategies/JwtStrategy";
