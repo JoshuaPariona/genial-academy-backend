@@ -88,7 +88,7 @@ export abstract class AppConfig {
     };
   }
 
-  public static get swaggerOptions(): swaggerJSDoc.Options {
+  public static get swaggerOptions(): swaggerJSDoc.OAS3Options {
     return {
       swaggerDefinition: {
         openapi: "3.0.0",
@@ -99,11 +99,38 @@ export abstract class AppConfig {
         },
         servers: [
           {
-            url: `localhost:${this.getEnvNumber("PORT")}`,
+            url: `http://localhost:${this.getEnvNumber("PORT")}`,
+            description: "Development",
+          },
+          {
+            url: `http://google.engine:${this.getEnvNumber("PORT")}`,
+            description: "Production",
+          },
+        ],
+        components: {
+          securitySchemes: {
+            ApiKeyAuth: {
+              type: "apiKey",
+              name: "x-api-key",
+              in: "header",
+            },
+            BearerAuth: {
+              type: "http",
+              name: "authorization",
+              in: "header",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+            },
+          },
+        },
+        security: [
+          {
+            ApiKeyAuth: [],
+            BearerAuth: [],
           },
         ],
       },
-      apis: ["./src/routers/*.ts"],
+      apis: ["./src/main/routers/*.ts", "./src/main/auth/router/*.ts"],
     };
   }
 }
