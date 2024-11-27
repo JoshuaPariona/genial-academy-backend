@@ -92,7 +92,7 @@ export class AuthController {
           );
           Responser.OK(
             res,
-            authUser,
+            authUser.user,
             `Registro exitoso, Como estas ${authUser.user.names} ${authUser.user.surNames} 🚀`
           );
         }
