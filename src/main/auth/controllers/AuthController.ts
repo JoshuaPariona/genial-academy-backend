@@ -90,7 +90,7 @@ export class AuthController {
           const authUser = await this.authService.saveAuthUserWithUser(
             signUpDto
           );
-          Responser.OK(
+          Responser.CREATED(
             res,
             authUser.user,
             `Registro exitoso, Como estas ${authUser.user.names} ${authUser.user.surNames} 🚀`
