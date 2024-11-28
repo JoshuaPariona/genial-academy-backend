@@ -7,10 +7,9 @@ import { SignUpUserDTO } from "../validations/dto/SignUpUserDTO";
 
 export class AuthController {
   private readonly authService: AuthService = new AuthService();
-
   protected readonly tag: string = "AuthController";
 
-  public get signIn(): (req: Request, res: Response) => Promise<void> {
+  public get signIn() {
     return async (req: Request, res: Response) => {
       try {
         const authUser = req.user as AuthUserEntity;
@@ -39,7 +38,7 @@ export class AuthController {
     };
   }
 
-  public get signOut(): (req: Request, res: Response) => Promise<void> {
+  public get signOut() {
     return async (req: Request, res: Response) => {
       try {
         const data = ["", ""];
@@ -69,7 +68,7 @@ export class AuthController {
     };
   }
 
-  public get signUp(): (req: Request, res: Response) => Promise<void> {
+  public get signUp() {
     return async (req: Request, res: Response) => {
       try {
         const signUpDto = req.body as SignUpUserDTO;
@@ -79,9 +78,7 @@ export class AuthController {
           this.authService.isUsernameUsed(signUpDto.username),
         ]);
         if (isEmailUsed || isUsernameUsed) {
-          const msg = isEmailUsed
-            ? "correo electrónico"
-            : "nombre de usuario";
+          const msg = isEmailUsed ? "correo electrónico" : "nombre de usuario";
           Responser.BAD_REQUEST(
             res,
             `El ${msg} esta actualmente en uso 😅, intenta con otro`
