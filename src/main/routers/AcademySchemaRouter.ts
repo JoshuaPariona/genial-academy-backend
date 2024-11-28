@@ -30,7 +30,7 @@ export class AcademySchemaRouter extends BaseRouter<
 
     /**
      * @swagger
-     * /api/university/{id}:
+     * /api/university/{uniId}:
      *   get:
      *     summary: Obtiene una universidad dado su id
      *     tags:
@@ -109,21 +109,25 @@ export class AcademySchemaRouter extends BaseRouter<
      *         description: Universidad no encontrada
      */
     this.router.get(
-      "/university/:id",
+      "/university/:uniId",
       this.middleware.base,
-      this.controller.getUniversityByIdOrSlug
+      this.controller.getUniversity
+    );
+
+    
+    this.router.get(
+      "/university/:uniId/areas",
+      this.middleware.base,
+      this.controller.getAreas
+    );
+    
+    this.router.get(
+      "/university/:uniId/area/:areaId",
+      this.middleware.base,
+      this.controller.getArea
     );
 
     /*
-
-    this.router.get("/areas", (req, res) =>
-      this.controller.getUniversityById(req, res)
-    );
-
-    this.router.get("/area/:id", (req, res) =>
-      this.controller.getUniversityById(req, res)
-    );
-
     this.router.get("/careers", (req, res) =>
       this.controller.getUniversityById(req, res)
     );
