@@ -9,14 +9,14 @@ export class UniversityService extends BaseService<UniversityEntity> {
   public findAll(): Promise<UniversityEntity[]> {
     return this.repository.find({
       select: ["id", "slug", "name", "thumbnail", "acronym"],
+      loadEagerRelations: false
     });
   }
 
-  public findById(id: number): Promise<UniversityEntity | null> {
-    return this.repository.findOneBy({ id });
-  }
-
-  public findBySlug(slug: string): Promise<UniversityEntity | null> {
-    return this.repository.findOneBy({ slug });
+  public find(uniId: string): Promise<UniversityEntity | null> {
+    const isNumeric = !isNaN(Number(uniId));
+    return this.repository.findOneBy(
+      isNumeric ? { id: Number(uniId) } : { slug: uniId }
+    );
   }
 }
