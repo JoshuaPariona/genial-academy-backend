@@ -13,6 +13,75 @@ export class AuthRouter {
   }
 
   private routes(): void {
+    /**
+     * @swagger
+     * /auth/signup:
+     *   post:
+     *     summary: Registrar un nuevo usuario
+     *     tags:
+     *       - AuthSchema
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             required:
+     *               - names
+     *               - surNames
+     *               - username
+     *               - email
+     *               - password
+     *             properties:
+     *               names:
+     *                 type: string
+     *                 description: Nombres del usuario (3 - 255 caracteres)
+     *                 example: "Juan Carlos"
+     *               surNames:
+     *                 type: string
+     *                 description: Apellidos del usuario (3 - 255 caracteres)
+     *                 example: "Pérez Gómez"
+     *               username:
+     *                 type: string
+     *                 description: Nombre de usuario único (8 - 100 caracteres)
+     *                 example: "juan.perez123"
+     *               email:
+     *                 type: string
+     *                 format: email
+     *                 description: Correo electrónico válido (máximo 254 caracteres)
+     *                 example: "juan.perez@example.com"
+     *               password:
+     *                 type: string
+     *                 description: Contraseña segura (mínimo 8 caracteres, al menos una mayúscula, una minúscula y un número)
+     *                 example: "Password123"
+     *     responses:
+     *       201:
+     *         description: Usuario registrado exitosamente
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: integer
+     *                   example: 201
+     *                 message:
+     *                   type: string
+     *                   example: "Usuario registrado con éxito"
+     *       400:
+     *         description: Datos inválidos o falta de información
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: integer
+     *                   example: 400
+     *                 error:
+     *                   type: string
+     *                   example: "El campo 'email' es obligatorio"
+     */
     this.router.post(
       "/signup",
       [this.authMiddleware.validateSignUpUserDTO],
@@ -24,6 +93,8 @@ export class AuthRouter {
      * /auth/signin:
      *   post:
      *     summary: Inicio de sesión de usuario
+     *     tags:
+     *       - AuthSchema
      *     description: Permite a un usuario autenticarse proporcionando sus credenciales.
      *     requestBody:
      *       required: true
