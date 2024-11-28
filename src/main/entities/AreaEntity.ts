@@ -1,9 +1,12 @@
-import { Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { UniversityEntity } from "./UniversityEntity";
 import { AcademyBaseEntity } from "./base/AcademyBaseEntity";
 
 @Entity({ name: "areas" })
 export class AreaEntity extends AcademyBaseEntity {
-  @ManyToOne(() => UniversityEntity)
+  @Column()
+  largeName!: string;
+
+  @ManyToOne(() => UniversityEntity, { eager: true })
   university!: UniversityEntity;
 }
