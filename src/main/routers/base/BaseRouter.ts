@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, RouterOptions } from "express";
 import { Logger, LogLevel } from "../../utils/Logger";
 
 export class BaseRouter<C, M> {
@@ -11,10 +11,11 @@ export class BaseRouter<C, M> {
   constructor(
     Controller: new () => C,
     Middleware: new () => M,
-    feature: string
+    feature: string,
+    options?: RouterOptions
   ) {
     this.feature = feature;
-    this.router = Router();
+    this.router = Router(options);
     this.controller = new Controller();
     this.middleware = new Middleware();
     this.routes();
