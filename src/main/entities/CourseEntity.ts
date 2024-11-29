@@ -4,6 +4,6 @@ import { AcademyBaseEntity } from "./base/AcademyBaseEntity";
 
 @Entity({ name: "courses" })
 export class CourseEntity extends AcademyBaseEntity {
-  @ManyToOne(() => AreaEntity)
+  @ManyToOne(() => AreaEntity, { eager: true })
   area!: AreaEntity;
 }
