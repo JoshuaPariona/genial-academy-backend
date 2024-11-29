@@ -6,7 +6,7 @@ export class AreaService extends BaseService<AreaEntity> {
     super(AreaEntity);
   }
 
-  // SPIKE: Es posible q se pueda agregar a la llamada de universidades 
+  // SPIKE: Es posible q se pueda agregar a la llamada de universidad
   // y no hacer esta llamada externa, pero areas debe devolvers solo esta 
   // data en select
   public findAll(uniId: string): Promise<AreaEntity[]> {
