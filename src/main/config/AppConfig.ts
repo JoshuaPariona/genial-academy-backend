@@ -130,7 +130,7 @@ export abstract class AppConfig {
           },
         ],
       },
-      apis: ["./src/main/routers/*.ts", "./src/main/auth/router/*.ts"],
+      apis: ["./src/main/routers/**/*.ts", "./src/main/auth/router/*.ts"],
     };
   }
 }
