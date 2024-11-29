@@ -9,7 +9,7 @@
     "typeorm": "typeorm-ts-node-esm -d ./database/AppDataSource.ts",
     "m:gen": "npm run typeorm migration:generate",
     "m:run": "npm run typeorm migration:run",
-    "viz:dep": "npx depcruise src --include-only \"src\" --output-type dot | dot -Tsvg -o screenshots/graph/dependencies.svg",
+    "viz:dep": "depcruise src --include-only \"src/main\" --exclude \"(^src/main/utils|src/main/config)\" --output-type dot | dot -Tsvg -o screenshots/graph/dependencies.svg",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
