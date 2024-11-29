@@ -10,7 +10,7 @@ export class AcademySchemaRouter extends BaseRouter<
     super(AcademySchemaController, AcademySchemaMiddleware, "AcademyRouter");
   }
 
-  protected override routes(): void {
+  protected override routes(): void { 
     /**
      * @swagger
      * /api/universities:
@@ -114,13 +114,12 @@ export class AcademySchemaRouter extends BaseRouter<
       this.controller.getUniversity
     );
 
-    
     this.router.get(
       "/university/:uniId/areas",
       this.middleware.base,
       this.controller.getAreas
     );
-    
+
     this.router.get(
       "/university/:uniId/area/:areaId",
       this.middleware.base,
@@ -131,19 +130,25 @@ export class AcademySchemaRouter extends BaseRouter<
     this.router.get("/careers", (req, res) =>
       this.controller.getUniversityById(req, res)
     );
-
+    
     this.router.get("/career/:id", (req, res) =>
       this.controller.getUniversityById(req, res)
     );
+    */
 
-    this.router.get("/courses", (req, res) =>
-      this.controller.getUniversityById(req, res)
+    this.router.get(
+      "/university/:uniId/area/:areaId/courses",
+      this.middleware.base,
+      this.controller.getCourses
     );
 
-    this.router.get("/course/:id", (req, res) =>
-      this.controller.getUniversityById(req, res)
+    this.router.get(
+      "/university/:uniId/area/:areaId/course/:courseId",
+      this.middleware.base,
+      this.controller.getCourse
     );
 
+    /*
     this.router.get("/topics", (req, res) =>
       this.controller.getUniversityById(req, res)
     );
