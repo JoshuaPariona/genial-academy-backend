@@ -15,7 +15,7 @@ export abstract class AppConfig {
 
   private static get envPath(): string {
     const envs: Array<string> = ["env"];
-    const nodeEnv = process.env["NODE_ENV"];
+    const nodeEnv = process.env["NODE_ENV"]?.trim();
     if (nodeEnv) envs.unshift(...nodeEnv.split("."));
     return "." + envs.join(".");
   }
