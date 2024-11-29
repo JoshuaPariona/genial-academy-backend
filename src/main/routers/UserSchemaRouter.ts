@@ -1,14 +1,10 @@
-import { UserSchemaController } from "../controllers/UserSchemaController";
 import { UserSchemaMiddleware } from "../middlewares/UserSchemaMiddleware";
-import { BaseRouter } from "./base/BaseRouter";
+import { NoControllerBaseRouter } from "./base/NoControllerBaseRouter";
 
-export class UserSchemaRouter extends BaseRouter<
-  UserSchemaController,
-  UserSchemaMiddleware
-> {
+export class UserSchemaRouter extends NoControllerBaseRouter<UserSchemaMiddleware> {
   constructor() {
-    super(UserSchemaController, UserSchemaMiddleware, "UserRouter");
+    super(UserSchemaMiddleware, "UserRouter");
   }
 
-  protected override routes(): void {}
+  protected override useMiddleware(): void {}
 }
