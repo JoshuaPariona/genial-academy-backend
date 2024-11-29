@@ -5,6 +5,7 @@ import { Responser } from "../../utils/Responser";
 import { JwtStrategy } from "../strategies/JwtStrategy";
 import { SignUpUserDTO } from "../validations/dto/SignUpUserDTO";
 import { validateSync } from "class-validator";
+import { LocalStrategy } from "../strategies/LocalStrategy";
 
 export class AuthMiddleware {
   public validateSignUpUserDTO(
@@ -34,7 +35,7 @@ export class AuthMiddleware {
   }
 
   public get authenticateWithLocal() {
-    return passport.authenticate(JwtStrategy.stgName, { session: false });
+    return passport.authenticate(LocalStrategy.stgName, { session: false });
   }
 
   public get authenticateWithJwt() {
