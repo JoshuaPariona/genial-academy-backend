@@ -1,11 +1,13 @@
 import { CourseController } from "../../controllers/academy/CourseController";
 import { NoMiddlewareBaseRouter } from "../base/NoMiddlewareBaseRouter";
+import { TopicRouter } from "./TopicRouter";
 
 export class CourseRouter extends NoMiddlewareBaseRouter<CourseController> {
   constructor() {
     super(CourseController, "CourseRouter", {
       mergeParams: true,
     });
+    this.router.use("/course/:courseId", new TopicRouter().router);
   }
 
   protected override routes(): void {

@@ -12,7 +12,7 @@ export class QuestionEntity extends IncrementBaseEntity {
   @Column({ length: 20, nullable: true })
   admissionProcess?: string;
 
-  @OneToMany(() => OptionEntity, (option) => option.question)
+  @OneToMany(() => OptionEntity, (option) => option.question, {eager: true})
   options!: OptionEntity[];
 
   @ManyToOne(() => TopicEntity)
