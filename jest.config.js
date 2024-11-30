@@ -3,7 +3,7 @@ module.exports = {
   verbose: true,
   preset: "ts-jest",
   testEnvironment: "node",
-
+  coverageDirectory: "docs/reports/coverage",
   //roots: ["<rootDir>/src/test"],
   //moduleNameMapper: {
   //  "^@main/(.*)$": "<rootDir>/src/main/$1",
