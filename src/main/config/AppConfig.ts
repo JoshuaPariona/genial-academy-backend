@@ -20,6 +20,12 @@ export abstract class AppConfig {
     return "." + envs.join(".");
   }
 
+  private static get isProduction(): boolean {
+    const nodeEnv = process.env["NODE_ENV"];
+    if (nodeEnv) return true;
+    return false;
+  }
+
   public static getEnvString(key: string): string {
     const value = process.env[key]?.trim();
     if (!value) {
@@ -42,7 +48,7 @@ export abstract class AppConfig {
       database: this.getEnvString("DB_DATABASE"),
       entities: [__dirname + "../../entities/*{.ts,.js}"],
       migrations: [__dirname + "../../migrations/*{.ts,.js}"],
-      synchronize: true, //false
+      synchronize: !this.isProduction,
       //migrationsRun: true,
       logging: false,
       namingStrategy: new SnakeNamingStrategy(),
