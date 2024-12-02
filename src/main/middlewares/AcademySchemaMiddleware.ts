@@ -5,9 +5,6 @@ export class AcademySchemaMiddleware extends AuthMiddleware {
   public get base(): Array<
     (req: Request, res: Response, next: NextFunction) => void
   > {
-    return [
-      this.authenticateWithJwt,
-      this.validateIsAuthenticated,
-    ];
+    return [this.authenticateWithJwt, this.validateIsAuthenticated];
   }
 }
