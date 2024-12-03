@@ -17,11 +17,14 @@ export class UserEntity extends UuidBaseEntity {
   @Column({ nullable: true })
   publicEmail?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 2048 })
   imageUrl?: string;
 
   @Column({ nullable: true })
   phone?: number;
+
+  @Column({ type: "int", default: 0 })
+  coins!: number;
 
   @Column({ nullable: true })
   department?: string;
