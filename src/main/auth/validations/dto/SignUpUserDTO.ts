@@ -46,7 +46,7 @@ export class SignUpUserDTO {
 
   @IsNotEmpty({ message: "El campo contraseña es obligatorio" })
   @IsString({ message: "La contraseña debe ser un texto" })
-  @Length(8, 100, { message: "La contraseña debe tener al menos 8 caracteres" })
+  @Length(8, 72, { message: "La contraseña debe tener al menos 8-72 caracteres" })
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, {
     message:
       "La contraseña debe contener al menos una letra minúscula, una letra mayúscula y un número",

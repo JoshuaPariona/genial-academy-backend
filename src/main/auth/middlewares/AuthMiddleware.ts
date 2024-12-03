@@ -54,11 +54,14 @@ export class AuthMiddleware {
   // Must be authenticated
   public validateOwnerUser(req: Request, res: Response, next: NextFunction) {
     const authUser = req.user as AuthUserEntity;
-    const { id } = req.params;
-    if (authUser.user.id === id) {
+    const { userId } = req.params;
+    if (authUser.user.id === userId) {
       return next();
     }
-    return Responser.UNAUTHORIZED(res, "No tienes suficientes permisos");
+    return Responser.UNAUTHORIZED(
+      res,
+      "No puedes modificar modificar datos de otros usuarios"
+    );
   }
 
   // Must be authenticated
@@ -80,7 +83,6 @@ export class AuthMiddleware {
     dataField: any
   ): (req: Request, res: Response, next: NextFunction) => void {
     return (req, res, next) => {
-      
       // data field puede ser author, user o created_by, etc
       //TODO: validar solo el usuario dueno del registro pueda modificar o alterar los registros q el crea
       next();
