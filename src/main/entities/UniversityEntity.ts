@@ -1,6 +1,5 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { AcademyBaseEntity } from "./base/AcademyBaseEntity";
-import { StepEntity } from "./StepEntity";
 
 @Entity({ name: "universities" })
 export class UniversityEntity extends AcademyBaseEntity {
@@ -15,7 +14,4 @@ export class UniversityEntity extends AcademyBaseEntity {
 
   @Column({ length: 2048 })
   admissionImg!: string;
-
-  @OneToMany(() => StepEntity, (step) => step.university, { eager: true })
-  steps!: StepEntity[];
 }

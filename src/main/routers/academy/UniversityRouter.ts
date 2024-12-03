@@ -90,17 +90,6 @@ export class UniversityRouter extends NoMiddlewareBaseRouter<UniversityControlle
      *                     admissionImg:
      *                       type: string
      *                       example: "url:imagepath"
-     *                     steps:
-     *                       type: array
-     *                       items:
-     *                         type: object
-     *                         properties:
-     *                           statement:
-     *                             type: string
-     *                             example: "Primero selecciona el area a que quieres postular ...."
-     *                           index:
-     *                             type: integer
-     *                             example: 1
      *       404:
      *         description: Universidad no encontrada
      */
