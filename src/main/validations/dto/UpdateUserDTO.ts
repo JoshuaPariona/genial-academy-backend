@@ -48,8 +48,8 @@ export class UpdateUserDTO {
   imageUrl?: string;
 
   @IsInt()
-  @IsPositive({ message: "Phone number must be positive." })
   @IsOptional()
+  @IsPositive({ message: "Phone number must be positive." })
   @ValidateIf((obj) => obj.phone?.toString().length === 9)
   phone?: number;
 
