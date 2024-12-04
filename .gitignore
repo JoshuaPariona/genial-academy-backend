@@ -16,6 +16,7 @@ yarn-error.log*
 dist/
 build/
 out/
+docs/
 
 # Local config
 .dependency-cruiser.js
@@ -34,9 +35,6 @@ Thumbs.db
 *.tmp
 *.temp
 *.bak
-
-# Coverage reports
-coverage/
 
 # Misc
 package-lock.json
