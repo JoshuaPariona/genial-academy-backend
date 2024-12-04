@@ -5,6 +5,8 @@ import {
   IsOptional,
   IsNotEmpty,
   IsInt,
+  IsPositive,
+  ValidateIf,
 } from "class-validator";
 
 export class UpdateUserDTO {
@@ -46,10 +48,9 @@ export class UpdateUserDTO {
   imageUrl?: string;
 
   @IsInt()
+  @IsPositive({ message: "Phone number must be positive." })
   @IsOptional()
-  @MaxLength(9, {
-    message: "El telefono celular no puede exceder los 9 caracteres.",
-  })
+  @ValidateIf((obj) => obj.phone?.toString().length === 9)
   phone?: number;
 
   @IsString({ message: "El departamento debe ser un texto válido." })
