@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne } from "typeorm";
-import { IncrementBaseEntity } from "./base/IncrementBaseEntity";
+import { IncrementBaseEntity } from "../base/entities/IncrementBaseEntity";
 import { TopicEntity } from "./TopicEntity";
 
 @Entity({ name: "materials" })

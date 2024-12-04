@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { UuidBaseEntity } from "./base/UuidBaseEntity";
+import { UuidBaseEntity } from "../base/entities/UuidBaseEntity";
 import { UserEntity } from "./UserEntity";
 
 @Entity({ name: "auth_users" })

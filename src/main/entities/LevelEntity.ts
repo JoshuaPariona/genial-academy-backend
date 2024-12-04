@@ -1,5 +1,5 @@
 import { Column, Entity } from "typeorm";
-import { IncrementBaseEntity } from "./base/IncrementBaseEntity";
+import { IncrementBaseEntity } from "../base/entities/IncrementBaseEntity";
 
 @Entity({ name: "levels" })
 export class LevelEntity extends IncrementBaseEntity {

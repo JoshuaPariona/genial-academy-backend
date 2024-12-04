@@ -1,5 +1,5 @@
 import { AreaEntity } from "../../entities/AreaEntity";
-import { BaseService } from "../base/BaseService";
+import { BaseService } from "../../base/services/BaseService";
 
 
 export class AreaService extends BaseService<AreaEntity> {

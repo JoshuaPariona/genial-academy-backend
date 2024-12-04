@@ -1,5 +1,5 @@
 import { LevelController } from "../../controllers/academy/LevelController";
-import { NoMiddlewareBaseRouter } from "../base/NoMiddlewareBaseRouter";
+import { NoMiddlewareBaseRouter } from "../../base/routers/NoMiddlewareBaseRouter";
 
 export class LevelRouter extends NoMiddlewareBaseRouter<LevelController> {
   constructor() {

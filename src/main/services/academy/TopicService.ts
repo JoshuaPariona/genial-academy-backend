@@ -1,5 +1,5 @@
 import { TopicEntity } from "../../entities/TopicEntity";
-import { BaseService } from "../base/BaseService";
+import { BaseService } from "../../base/services/BaseService";
 
 export class TopicService extends BaseService<TopicEntity> {
   constructor() {

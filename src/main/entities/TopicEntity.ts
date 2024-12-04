@@ -1,5 +1,5 @@
 import { Entity, ManyToOne } from "typeorm";
-import { AcademyBaseEntity } from "./base/AcademyBaseEntity";
+import { AcademyBaseEntity } from "../base/entities/AcademyBaseEntity";
 import { CourseEntity } from "./CourseEntity";
 
 @Entity({ name: "topics" })

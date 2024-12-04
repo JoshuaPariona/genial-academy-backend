@@ -1,5 +1,5 @@
 import { QuestionController } from "../../controllers/academy/QuestionController";
-import { NoMiddlewareBaseRouter } from "../base/NoMiddlewareBaseRouter";
+import { NoMiddlewareBaseRouter } from "../../base/routers/NoMiddlewareBaseRouter";
 
 export class QuestionRouter extends NoMiddlewareBaseRouter<QuestionController> {
   constructor() {

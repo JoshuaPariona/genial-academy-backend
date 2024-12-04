@@ -1,6 +1,6 @@
 import { UserController } from "../../controllers/user/UserController";
 import { UserSchemaMiddleware } from "../../middlewares/UserSchemaMiddleware";
-import { BaseRouter } from "../base/BaseRouter";
+import { BaseRouter } from "../../base/routers/BaseRouter";
 
 export class UserRouter extends BaseRouter<
   UserController,
