@@ -1,6 +1,6 @@
 import { UpdateResult } from "typeorm";
 import { UserEntity } from "../../entities/UserEntity";
-import { BaseService } from "../base/BaseService";
+import { BaseService } from "../../base/services/BaseService";
 import { UpdateUserCoinsDTO } from "../../validations/dto/UpdateUserCoinsDTO";
 
 export class UserService extends BaseService<UserEntity> {

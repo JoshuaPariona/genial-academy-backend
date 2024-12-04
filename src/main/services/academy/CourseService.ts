@@ -1,5 +1,5 @@
 import { CourseEntity } from "../../entities/CourseEntity";
-import { BaseService } from "../base/BaseService";
+import { BaseService } from "../../base/services/BaseService";
 
 export class CourseService extends BaseService<CourseEntity> {
   constructor() {

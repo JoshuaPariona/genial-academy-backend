@@ -1,7 +1,7 @@
 import { AcademySchemaMiddleware } from "../middlewares/AcademySchemaMiddleware";
 import { LevelRouter } from "./academy/LevelRouter";
 import { UniversityRouter } from "./academy/UniversityRouter";
-import { NoControllerBaseRouter } from "./base/NoControllerBaseRouter";
+import { NoControllerBaseRouter } from "../base/routers/NoControllerBaseRouter";
 
 export class AcademySchemaRouter extends NoControllerBaseRouter<AcademySchemaMiddleware> {
   constructor() {

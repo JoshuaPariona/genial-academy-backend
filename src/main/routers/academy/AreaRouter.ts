@@ -1,5 +1,5 @@
 import { AreaController } from "../../controllers/academy/AreaController";
-import { NoMiddlewareBaseRouter } from "../base/NoMiddlewareBaseRouter";
+import { NoMiddlewareBaseRouter } from "../../base/routers/NoMiddlewareBaseRouter";
 import { CourseRouter } from "./CourseRouter";
 
 export class AreaRouter extends NoMiddlewareBaseRouter<AreaController> {

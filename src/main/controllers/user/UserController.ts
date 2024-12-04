@@ -37,7 +37,6 @@ export class UserController {
       }
     };
   }
-  
 
   public get updateUser() {
     return async (req: Request, res: Response) => {

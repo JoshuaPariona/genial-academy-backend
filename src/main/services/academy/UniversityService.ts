@@ -1,5 +1,5 @@
 import { UniversityEntity } from "../../entities/UniversityEntity";
-import { BaseService } from "../base/BaseService";
+import { BaseService } from "../../base/services/BaseService";
 
 
 export class UniversityService extends BaseService<UniversityEntity> {

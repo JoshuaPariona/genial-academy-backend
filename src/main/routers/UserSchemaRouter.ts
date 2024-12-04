@@ -1,5 +1,5 @@
 import { UserSchemaMiddleware } from "../middlewares/UserSchemaMiddleware";
-import { NoControllerBaseRouter } from "./base/NoControllerBaseRouter";
+import { NoControllerBaseRouter } from "../base/routers/NoControllerBaseRouter";
 import { UserRouter } from "./user/UserRouter";
 
 export class UserSchemaRouter extends NoControllerBaseRouter<UserSchemaMiddleware> {

@@ -1,5 +1,5 @@
 import { Column, Entity } from "typeorm";
-import { UuidBaseEntity } from "./base/UuidBaseEntity";
+import { UuidBaseEntity } from "../base/entities/UuidBaseEntity";
 
 @Entity({ name: "users" })
 export class UserEntity extends UuidBaseEntity {

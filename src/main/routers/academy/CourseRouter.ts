@@ -1,5 +1,5 @@
 import { CourseController } from "../../controllers/academy/CourseController";
-import { NoMiddlewareBaseRouter } from "../base/NoMiddlewareBaseRouter";
+import { NoMiddlewareBaseRouter } from "../../base/routers/NoMiddlewareBaseRouter";
 import { TopicRouter } from "./TopicRouter";
 
 export class CourseRouter extends NoMiddlewareBaseRouter<CourseController> {

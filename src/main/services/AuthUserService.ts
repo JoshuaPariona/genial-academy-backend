@@ -1,6 +1,6 @@
 import { DeepPartial } from "typeorm";
 import { AuthUserEntity } from "../entities/AuthUserEntity";
-import { BaseService } from "./base/BaseService";
+import { BaseService } from "../base/services/BaseService";
 
 export class AuthUserService extends BaseService<AuthUserEntity> {
   constructor() {
