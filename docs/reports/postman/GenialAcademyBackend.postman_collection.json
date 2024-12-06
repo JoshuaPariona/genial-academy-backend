@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "e2559547-1ab3-457a-9210-c88d85f36ead",
+		"name": "GenialAcademyBackend",
+		"description": "Pruebas funcionales de la api (GenialAcademy - backend)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38731786"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"names\": \"Test User\",\r\n    \"surNames\": \"User Test\",\r\n    \"username\": \"UserTest\",\r\n    \"email\": \"user@test.com\",\r\n    \"password\": \"123UserTest\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}:{{port}}/auth/signup",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"\r",
+									"if (response.data && response.data.accessToken) {\r",
+									"    pm.collectionVariables.set(\"accessToken\", response.data.accessToken);\r",
+									"} else {\r",
+									"    console.log(\"No accessToken found in the response.\");\r",
+									"}\r",
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.unset(\"accessToken\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identifier\" : \"user@test.com\",\r\n    \"password\" : \"123UserTest\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}:{{port}}/auth/signin",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Academy",
+			"item": [
+				{
+					"name": "Universities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/universities",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"universities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "University",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Areas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/areas",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"areas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Area",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/area/1",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"area",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Courses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/area/1/courses",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"area",
+								"1",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Course",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/area/1/course/1",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"area",
+								"1",
+								"course",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/area/1/course/1/topics",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"area",
+								"1",
+								"course",
+								"1",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topic",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/area/1/course/1/topic/1",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"area",
+								"1",
+								"course",
+								"1",
+								"topic",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/university/1/area/1/course/1/topic/1/questions?level=basic&count=2",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"university",
+								"1",
+								"area",
+								"1",
+								"course",
+								"1",
+								"topic",
+								"1",
+								"questions"
+							],
+							"query": [
+								{
+									"key": "level",
+									"value": "basic"
+								},
+								{
+									"key": "count",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{address}}:{{port}}/api/user/01d940a9-1ca6-4185-b33c-3bda0fe559be",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"01d940a9-1ca6-4185-b33c-3bda0fe559be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\" : 999888777,\r\n    \"department\": \"Lima\",\r\n    \"university\": \"Universidad Nacional Mayor de San Marcos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}:{{port}}/api/user/01d940a9-1ca6-4185-b33c-3bda0fe559be",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"01d940a9-1ca6-4185-b33c-3bda0fe559be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Coins",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\" : \"increment\",\r\n    \"coins\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}:{{port}}/api/user/01d940a9-1ca6-4185-b33c-3bda0fe559be/coins",
+							"host": [
+								"{{address}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"01d940a9-1ca6-4185-b33c-3bda0fe559be",
+								"coins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "x-api-key",
+			"value": "genialacademyapi_4bc22ee0-922f-4cdb-a932-987ef5b7875b",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "address",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "3000",
+			"type": "string"
+		}
+	]
+}

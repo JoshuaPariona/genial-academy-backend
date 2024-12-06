@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="7.769">
+  <testsuite name="sum" errors="0" failures="0" skipped="0" timestamp="2024-12-04T06:20:04" time="7.381" tests="5">
+    <testcase classname="sum should return the correct sum of two positive numbers" name="sum should return the correct sum of two positive numbers" time="0.011">
+    </testcase>
+    <testcase classname="sum should return the correct sum of a positive and a negative number" name="sum should return the correct sum of a positive and a negative number" time="0.001">
+    </testcase>
+    <testcase classname="sum should return the correct sum of two negative numbers" name="sum should return the correct sum of two negative numbers" time="0">
+    </testcase>
+    <testcase classname="sum should return 0 when adding 0 and 0" name="sum should return 0 when adding 0 and 0" time="0.001">
+    </testcase>
+    <testcase classname="sum should handle large numbers correctly" name="sum should handle large numbers correctly" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
