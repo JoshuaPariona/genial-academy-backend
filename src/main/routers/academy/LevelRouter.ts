@@ -7,6 +7,13 @@ export class LevelRouter extends NoMiddlewareBaseRouter<LevelController> {
   }
 
   protected override routes(): void {
+    /**
+     * @swagger
+     * /api/levels:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/levels", this.controller.getLevels);
   }
 }

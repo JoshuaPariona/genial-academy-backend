@@ -11,8 +11,22 @@ export class TopicRouter extends NoMiddlewareBaseRouter<TopicController> {
   }
 
   protected override routes(): void {
+    /**
+     * @swagger
+     * /api/university/{uniId}/area/{areaId}/course/{courseId}/topics:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/topics", this.controller.getTopics);
 
+    /**
+     * @swagger
+     * /api/university/{uniId}/area/{areaId}/course/{courseId}/topic/{topicId}:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/topic/:topicId", this.controller.getTopic);
   }
 }

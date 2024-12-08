@@ -11,8 +11,22 @@ export class UserRouter extends BaseRouter<
   }
 
   protected override routes(): void {
+    /**
+     * @swagger
+     * /api/user/{userId}:
+     *   get:
+     *    tags:
+     *       - UserSchema
+     */
     this.router.get("/user/:userId", this.controller.getUser);
 
+    /**
+     * @swagger
+     * /api/user/{userId}:
+     *   patch:
+     *    tags:
+     *       - UserSchema
+     */
     this.router.patch(
       "/user/:userId",
       this.middleware.validateOwnerUser,
@@ -20,6 +34,13 @@ export class UserRouter extends BaseRouter<
       this.controller.updateUser
     );
 
+    /**
+     * @swagger
+     * /api/user/{userId}/coins:
+     *   patch:
+     *    tags:
+     *       - UserSchema
+     */
     this.router.patch(
       "/user/:userId/coins",
       this.middleware.validateOwnerUser,

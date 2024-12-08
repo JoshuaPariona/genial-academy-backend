@@ -11,8 +11,22 @@ export class CourseRouter extends NoMiddlewareBaseRouter<CourseController> {
   }
 
   protected override routes(): void {
+    /**
+     * @swagger
+     * /api/university/{uniId}/area/{areaId}/courses:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/courses", this.controller.getCourses);
 
+    /**
+     * @swagger
+     * /api/university/{uniId}/area/{areaId}/course/{courseId}:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/course/:courseId", this.controller.getCourse);
   }
 }

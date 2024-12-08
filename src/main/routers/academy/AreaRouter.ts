@@ -11,8 +11,22 @@ export class AreaRouter extends NoMiddlewareBaseRouter<AreaController> {
   }
 
   protected override routes(): void {
+    /**
+     * @swagger
+     * /api/university/{uniId}/areas:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/areas", this.controller.getAreas);
 
+    /**
+     * @swagger
+     * /api/university/{uniId}/area/{areaId}:
+     *   get:
+     *    tags:
+     *       - AcademySchema
+     */
     this.router.get("/area/:areaId", this.controller.getArea);
   }
 }
